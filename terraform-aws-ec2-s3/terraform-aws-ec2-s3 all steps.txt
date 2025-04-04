@@ -1,0 +1,63 @@
+Step 1. Create IAM user for using credentials — — 
+a) Go to IAM user console 
+b) Click to ADD user 
+c) Give the user NAME 
+d) Select AWS credential type access-key 
+e) Go to ATTACH existing policies directly_SELECT —
+ AdministratorAccess 
+f) Click to NEXT and CREATE 
+g) COPY access key and secret key for using configuration file in 
+terraform 
+  
+Step 2. Create the provider.tf file — — 
+provider "aws"  
+{access_key = "************" 
+secret_key = "*************" 
+region = "us-east-1"} 
+
+Step 3. Create the instance.tf file for the launch EC2 instance— — 
+resource "aws_instance" "sufix1" { 
+ami   = "ami-0e2c8caa4b6378d8c" 
+instance_type = "t2.micro" 
+tags = { 
+Name = "Ubuntu" 
+} 
+} 
+  
+Step 4. Create the EC2 environment — — 
+terraform init  
+Initializes the environment and pulls down the AWS provider. 
+
+terraform plan  
+Creates an execution plan for the environment and confirm no bugs are found. 
+
+terraform apply — auto-approve Creates and automatically approves the 
+environment. 
+
+Create the s3bucket.tf file for the creating S3 Bucket— — 
+resource "aws_s3_bucket" "sufiayns1" { 
+bucket = "project-tf-s3" 
+#  acl = "private" 
+# versioning { 
+#    
+#} 
+enable = true 
+tags = { 
+  
+Name        
+= "My bucket" 
+Environment = "Dev" 
+} 
+} 
+
+Create the S3 Bucket — — 
+
+terraform init  
+Initializes the environment and pulls down the AWS provider. 
+
+terraform plan  
+Creates an execution plan for the environment and confirm no bugs 
+are found. 
+
+terraform apply — auto-approve 
+Creates and automatically approves the environment.
